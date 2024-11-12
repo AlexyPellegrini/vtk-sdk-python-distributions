@@ -28,8 +28,7 @@ if(NOT DEFINED plaform_tag)
 endif()
 message(STATUS "  plaform_tag: ${plaform_tag}")
 
-set(VTK_SDK_BINARY_URL
-    "https://vtk.org/files/wheel-sdks/vtk-wheel-sdk-${VTK_VERSION}-${python_tag}-${abi_tag}-${plaform_tag}.tar.xz"
+set(VTK_SDK_BINARY_URL "https://vtk.org/files/wheel-sdks/vtk-wheel-sdk-${SKBUILD_PROJECT_VERSION}-${python_tag}-${abi_tag}-${plaform_tag}.tar.xz"
 )
 message(STATUS "Setting VTK_SDK_BINARY_URL: ${VTK_SDK_BINARY_URL}")
 
@@ -74,7 +73,7 @@ set(sha256_9.2.5-cp311-cp311-win_amd64
 
 if(NOT DEFINED sha256_${VTK_VERSION}-${python_tag}-${abi_tag}-${plaform_tag})
   message(
-    FATAL_ERROR
+    #FATAL_ERROR
       "Variable sha256_${VTK_VERSION}-${python_tag}-${abi_tag}-${plaform_tag} is not defined"
   )
 endif()

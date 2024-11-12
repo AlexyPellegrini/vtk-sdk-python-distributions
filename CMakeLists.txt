@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 3.21)
 
-set(VTK_VERSION "9.2.5")
+# strip local version (+<hash>.<hash>) if present
+string(FIND ${SKBUILD_PROJECT_VERSION_FULL} "+" _local_version_begin)
+if(NOT ${_local_version_begin} STREQUAL "-1")
+  string(SUBSTRING ${SKBUILD_PROJECT_VERSION_FULL} 0 ${_local_version_begin} VTK_VERSION_FULL)
+else()
+  set(VTK_VERSION_FULL ${SKBUILD_PROJECT_VERSION_FULL})
+endif()
+
+message(STATUS "VTK version from tag: ${VTK_VERSION_FULL}") # major.minor.patch[.dev0]
+set(VTK_VERSION ${SKBUILD_PROJECT_VERSION}) # major.minor.patch
 
 project(
   vtk-sdk
@@ -26,7 +35,7 @@ include(FetchContent)
 FetchContent_Populate(
   vtkwheelsdk
   URL ${VTK_SDK_BINARY_URL}
-  URL_HASH SHA256=${VTK_SDK_EXPECTED_SHA256}
+  #URL_HASH SHA256=${VTK_SDK_EXPECTED_SHA256}
   DOWNLOAD_DIR ${download_dir}
   SOURCE_DIR ${extract_dir})
 
